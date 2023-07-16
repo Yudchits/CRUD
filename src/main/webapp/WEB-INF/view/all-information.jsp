@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Main</title>
@@ -18,7 +20,9 @@
             </tr>
         </thead>
         <tbody>
+        <c:forEach>
 
+        </c:forEach>
         </tbody>
     </table>
 </body>
