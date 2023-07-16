@@ -8,7 +8,7 @@
 <body>
     <h2>Information about students:</h2><br><br>
 
-    <table border="1">
+    <table border="1" id="students_table">
         <thead>
             <tr>
                 <th>Имя</th>
@@ -20,9 +20,36 @@
             </tr>
         </thead>
         <tbody>
-        <c:forEach>
-
+        <c:forEach var="student" items="${students}">
+            <tr>
+                <td>${student.name}</td>
+                <td>${student.surname}</td>
+                <td>${student.course}</td>
+                <td>${student.faculty.name}</td>
+                <td>${student.email}</td>
+            </tr>
         </c:forEach>
+        </tbody>
+    </table>
+
+    <br><br><br>
+
+    <h2>Information about faculties:</h2><br><br>
+    <table border="1" id="faculties_table">
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Кол-во студентов</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <c:forEach var="faculty" items="${faculties}">
+                <tr>
+                    <td>${faculty.name}</td>
+                    <td>${faculty.numberOfStudents}</td>
+                </tr>
+            </c:forEach>
         </tbody>
     </table>
 </body>

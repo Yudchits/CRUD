@@ -6,6 +6,7 @@ import by.yudchits.uiip.crud_service.service.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -15,6 +16,7 @@ public class FacultyServiceImpl implements FacultyService {
     private FacultyDAO facultyDAO;
 
     @Override
+    @Transactional
     public List<Faculty> findAllFaculties() {
         return facultyDAO.findAllFaculties();
     }
