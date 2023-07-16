@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface FacultyDAO {
     List<Faculty> findAllFaculties();
+    Faculty findFacultyById(long id);
+    void saveOrUpdateFaculty(Faculty faculty);
+    void deleteFacultyById(long id);
 }

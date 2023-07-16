@@ -20,4 +20,22 @@ public class FacultyServiceImpl implements FacultyService {
     public List<Faculty> findAllFaculties() {
         return facultyDAO.findAllFaculties();
     }
+
+    @Override
+    @Transactional
+    public Faculty findFacultyById(long id) {
+        return facultyDAO.findFacultyById(id);
+    }
+
+    @Override
+    @Transactional
+    public void saveOrUpdateFaculty(Faculty faculty) {
+        facultyDAO.saveOrUpdateFaculty(faculty);
+    }
+
+    @Override
+    @Transactional
+    public void deleteFacultyById(long id) {
+        facultyDAO.deleteFacultyById(id);
+    }
 }

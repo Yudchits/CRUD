@@ -20,4 +20,22 @@ public class StudentServiceImpl implements StudentService {
     public List<Student> findAllStudents() {
         return studentDAO.findAllStudents();
     }
+
+    @Override
+    @Transactional
+    public Student findStudentById(long id) {
+        return studentDAO.findStudentById(id);
+    }
+
+    @Override
+    @Transactional
+    public void saveOrUpdateStudent(Student student) {
+        studentDAO.saveOrUpdateStudent(student);
+    }
+
+    @Override
+    @Transactional
+    public void deleteStudentById(long id) {
+        studentDAO.deleteStudentById(id);
+    }
 }
