@@ -4,6 +4,10 @@
   <groupId>by.yudchits.uiip</groupId>
   <artifactId>crud_service</artifactId>
   <packaging>war</packaging>
+  <properties>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+  </properties>
   <version>1.0-SNAPSHOT</version>
   <name>crud_service Maven Webapp</name>
   <url>http://maven.apache.org</url>
@@ -31,10 +35,11 @@
       <version>5.2.9.RELEASE</version>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>jstl</artifactId>
-      <version>1.2</version>
+      <version>1.1.2</version>
     </dependency>
 
     <dependency>
@@ -61,24 +66,17 @@
       <version>5.2.9.RELEASE</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>1.18.26</version>
-      <scope>provided</scope>
-    </dependency>
-
   </dependencies>
   <build>
     <finalName>crud_service</finalName>
 
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <artifactId>maven-war-plugin</artifactId>
-          <version>3.2.2</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>
+<!--    <pluginManagement>-->
+<!--      <plugins>-->
+<!--        <plugin>-->
+<!--          <artifactId>maven-war-plugin</artifactId>-->
+<!--          <version>3.2.2</version>-->
+<!--        </plugin>-->
+<!--      </plugins>-->
+<!--    </pluginManagement>-->
   </build>
 </project>

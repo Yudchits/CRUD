@@ -1,7 +1,6 @@
 package by.yudchits.uiip.crud_service.configuration;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import lombok.SneakyThrows;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.sql.DataSource;
+import java.beans.PropertyVetoException;
 import java.util.Properties;
 
 @Configuration
@@ -30,16 +30,20 @@ public class MyConfig {
         return viewResolver;
     }
 
-    @SneakyThrows
     @Bean
     public DataSource dataSource() {
-        ComboPooledDataSource dataSource = new ComboPooledDataSource();
-        dataSource.setDriverClass("com.mysql.cj.jdbc.Driver");
-        dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/practice?useSSL=false&serverTimezone=UTC");
-        dataSource.setUser("root");
-        dataSource.setPassword("pavliK_1.6pro");
+        try {
+            ComboPooledDataSource dataSource = new ComboPooledDataSource();
 
-        return dataSource;
+            dataSource.setDriverClass("com.mysql.cj.jdbc.Driver");
+            dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/practice?useSSL=false&serverTimezone=UTC");
+            dataSource.setUser("root");
+            dataSource.setPassword("pavliK_1.6pro");
+
+            return dataSource;
+        } catch (PropertyVetoException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Bean
