@@ -1,5 +1,8 @@
 package by.yudchits.uiip.crud_service.entity;
 
+import by.yudchits.uiip.crud_service.service.FacultyService;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 
 @Entity
@@ -26,6 +29,10 @@ public class Student {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "faculty_id")
     private Faculty faculty;
+
+    @Transient
+    @Autowired
+    private FacultyService facultyService;
 
     public Student() {
     }

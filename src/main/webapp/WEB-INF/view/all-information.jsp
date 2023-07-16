@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Main</title>
+    <title>Главная</title>
     <meta charset="utf-8">
 </head>
 <body>
@@ -31,6 +31,8 @@
         </c:forEach>
         </tbody>
     </table>
+    <br>
+    <input type="button" value="Добавить" onclick="window.location.href='add-student'">
 
     <br><br><br>
 
@@ -52,5 +54,7 @@
             </c:forEach>
         </tbody>
     </table>
+    <br>
+    <input type="button" value="Добавить" onclick="window.location.href='add-faculty'">
 </body>
 </html>

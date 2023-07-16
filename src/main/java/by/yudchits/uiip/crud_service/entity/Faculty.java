@@ -1,7 +1,6 @@
 package by.yudchits.uiip.crud_service.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,14 +27,6 @@ public class Faculty {
     public Faculty(String name, int numberOfStudents) {
         this.name = name;
         this.numberOfStudents = numberOfStudents;
-    }
-
-    public void addStudentToFaculty(Student student){
-        if(students == null)
-            students = new ArrayList<>();
-
-        students.add(student);
-        student.setFaculty(this);
     }
 
     public long getId() {
