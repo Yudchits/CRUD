@@ -1,6 +1,10 @@
 package by.yudchits.uiip.crud_service.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -13,9 +17,13 @@ public class Faculty {
     private long id;
 
     @Column(name = "name")
+    @NotBlank(message = "The field can't be empty")
+    @Size(min = 2, max = 10, message = "The length of a name must be between 2 and 10")
     private String name;
 
     @Column(name = "number_of_students")
+    @Min(value = 0, message = "A number of students can't be less than 0")
+    @Max(value = Integer.MAX_VALUE, message = "A number of students can't be more than 2147483647")
     private int numberOfStudents;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "faculty")

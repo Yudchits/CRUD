@@ -32,7 +32,7 @@
         </tbody>
     </table>
     <br>
-    <input type="button" value="Добавить" onclick="window.location.href='add-student'">
+    <input type="button" value="Add" onclick="window.location.href='add-student'">
 
     <br><br><br>
 
@@ -55,6 +55,6 @@
         </tbody>
     </table>
     <br>
-    <input type="button" value="Добавить" onclick="window.location.href='add-faculty'">
+    <input type="button" value="Add" onclick="window.location.href='add-faculty'">
 </body>
 </html>

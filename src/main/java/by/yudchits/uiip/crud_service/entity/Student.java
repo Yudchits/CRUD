@@ -1,9 +1,7 @@
 package by.yudchits.uiip.crud_service.entity;
 
-import by.yudchits.uiip.crud_service.service.FacultyService;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "students")
@@ -14,25 +12,28 @@ public class Student {
     @Column(name = "id")
     private long id;
 
-    @Column(name ="name")
+    @Column(name = "name")
+    @NotBlank(message = "The field can't be empty")
+    @Size(min = 1, max = 25, message = "The length of a name must be between 1 and 25")
     private String name;
 
     @Column(name = "surname")
+    @NotBlank(message = "The field can't be empty")
+    @Size(min = 1, max = 25, message = "The length of a name must be between 1 and 25")
     private String surname;
 
     @Column(name = "course")
+    @Min(value = 1, message = "A course can't be less than 1")
+    @Max(value = 6, message = "A course can't be more than 6")
     private int course;
 
     @Column(name = "email")
+    @Pattern(regexp = "^([a-z0-9_-]+\\.)*[a-z0-9_-]+@[a-z0-9_-]+(\\.[a-z0-9_-]+)*\\.[a-z]{2,6}$", message = "Incorrect email address")
     private String email;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "faculty_id")
     private Faculty faculty;
-
-    @Transient
-    @Autowired
-    private FacultyService facultyService;
 
     public Student() {
     }

@@ -47,12 +47,35 @@ public class MyController {
 
         for (Faculty faculty : faculties) {
             if(student.getFaculty().getName().equals(faculty.getName())){
+                student.setFaculty(faculty);
                 studentService.saveOrUpdateStudent(student);
                 return "redirect:/main";
             }
         }
 
-        bindingResult.rejectValue("faculty", "error.faculty", "Такого факультета не существует");
+        bindingResult.rejectValue("faculty", "error.faculty", "Such faculty doesn't exist");
         return "add-update-student";
+    }
+
+    @RequestMapping("/add-faculty")
+    public String addNewFaculty(Model model){
+        model.addAttribute("faculty", new Faculty());
+
+        return "add-update-faculty";
+    }
+
+    @RequestMapping("/save-update-faculty")
+    public String saveOrUpdateFaculty(@Valid @ModelAttribute("faculty") Faculty faculty, BindingResult bindingResult){
+        List<Faculty> faculties = facultyService.findAllFaculties();
+
+        for (Faculty f : faculties) {
+            if(f.getName().equals(faculty.getName())){
+                bindingResult.rejectValue("name", "error.name", "Such faculty already exists");
+                return "add-update-faculty";
+            }
+        }
+
+        facultyService.saveOrUpdateFaculty(faculty);
+        return "redirect:/main";
     }
 }
