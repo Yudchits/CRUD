@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -24,7 +25,7 @@ public class MyController {
     private FacultyService facultyService;
 
     @RequestMapping("/main")
-    public String showAllStudents(Model model){
+    public String showAllStudents(Model model) {
         List<Student> students = studentService.findAllStudents();
         List<Faculty> faculties = facultyService.findAllFaculties();
 
@@ -35,18 +36,18 @@ public class MyController {
     }
 
     @RequestMapping("/add-student")
-    public String addNewStudent(Model model){
+    public String addNewStudent(Model model) {
         model.addAttribute("student", new Student());
 
         return "add-update-student";
     }
 
     @RequestMapping("/save-update-student")
-    public String saveOrUpdateStudent(@Valid @ModelAttribute("student") Student student, BindingResult bindingResult){
+    public String saveOrUpdateStudent(@Valid @ModelAttribute("student") Student student, BindingResult bindingResult) {
         List<Faculty> faculties = facultyService.findAllFaculties();
 
         for (Faculty faculty : faculties) {
-            if(student.getFaculty().getName().equals(faculty.getName())){
+            if (student.getFaculty().getName().equals(faculty.getName())) {
                 student.setFaculty(faculty);
                 studentService.saveOrUpdateStudent(student);
                 return "redirect:/main";
@@ -57,25 +58,12 @@ public class MyController {
         return "add-update-student";
     }
 
-    @RequestMapping("/add-faculty")
-    public String addNewFaculty(Model model){
-        model.addAttribute("faculty", new Faculty());
+    @RequestMapping("/update-student-details")
+    public String updateStudentDetails(@RequestParam("id") long id, Model model) {
+        Student student = studentService.findStudentById(id);
 
-        return "add-update-faculty";
-    }
+        model.addAttribute("student", student);
 
-    @RequestMapping("/save-update-faculty")
-    public String saveOrUpdateFaculty(@Valid @ModelAttribute("faculty") Faculty faculty, BindingResult bindingResult){
-        List<Faculty> faculties = facultyService.findAllFaculties();
-
-        for (Faculty f : faculties) {
-            if(f.getName().equals(faculty.getName())){
-                bindingResult.rejectValue("name", "error.name", "Such faculty already exists");
-                return "add-update-faculty";
-            }
-        }
-
-        facultyService.saveOrUpdateFaculty(faculty);
-        return "redirect:/main";
+        return "add-update-student";
     }
 }
