@@ -53,17 +53,8 @@ public class MyController {
 
     @RequestMapping("/save-update-student")
     public String saveOrUpdateStudent(@Valid @ModelAttribute("student") Student student, BindingResult bindingResult) {
-        if (student.getId() != 0) {
-            return changeStudentDetails(student, bindingResult);
-        } else {
-            return saveNewStudent(student, bindingResult);
-        }
-    }
-
-    private String saveNewStudent(Student student, BindingResult bindingResult) {
         Faculty faculty = isFacultyExisted(student.getFaculty());
-
-        boolean isEmailExisted = isEmailExisted(student.getEmail());
+        boolean isEmailExisted = checkEmail(student);
 
         if (faculty == null) {
             bindingResult.rejectValue("faculty", "error.faculty", "Such faculty doesn't exist");
@@ -81,8 +72,18 @@ public class MyController {
         }
     }
 
-    private String changeStudentDetails(Student student, BindingResult bindingResult) {
-        return "redirect:/main";
+    private boolean checkEmail(Student student){
+        boolean isEmailExisted = false;
+        if(student.getId() == 0){
+            isEmailExisted = isEmailExisted(student.getEmail());
+        } else {
+            Student oldStudent = studentService.findStudentById(student.getId());
+            if(!oldStudent.getEmail().equals(student.getEmail())){
+                isEmailExisted = isEmailExisted(student.getEmail());
+            }
+        }
+
+        return isEmailExisted;
     }
 
     private Faculty isFacultyExisted(Faculty searchedFaculty) {
