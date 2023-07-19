@@ -107,4 +107,11 @@ public class MyController {
 
         return false;
     }
+
+    @RequestMapping("/delete-student")
+    public String deleteStudent(@RequestParam("id") long id){
+        studentService.deleteStudentById(id);
+
+        return "redirect:/main";
+    }
 }
