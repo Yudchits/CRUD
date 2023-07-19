@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-public class MyController {
+public class StudentController {
 
     @Autowired
     private StudentService studentService;

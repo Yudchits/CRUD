@@ -9,6 +9,9 @@
     <br><br><br>
 
     <form:form action="save-update-faculty" modelAttribute="faculty">
+
+        <form:hidden path="id"/>
+
         <label id="name">
             Name: <form:input path="name" id="name"/>
             <form:errors path="name"/>

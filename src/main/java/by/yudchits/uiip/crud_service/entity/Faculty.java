@@ -1,5 +1,7 @@
 package by.yudchits.uiip.crud_service.entity;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -18,7 +20,7 @@ public class Faculty {
 
     @Column(name = "name")
     @NotBlank(message = "The field can't be empty")
-    @Size(min = 2, max = 10, message = "The length of a name must be between 2 and 10")
+    @Length(min = 2, max = 10, message = "The length of a name must be between 2 and 10")
     private String name;
 
     @Column(name = "number_of_students")

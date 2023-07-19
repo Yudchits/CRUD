@@ -62,7 +62,6 @@
         <tbody>
             <c:forEach var="faculty" items="${faculties}">
 
-
                 <c:url var="update_faculty_button" value="/update-faculty-details">
                     <c:param name="id" value="${faculty.id}"/>
                 </c:url>
