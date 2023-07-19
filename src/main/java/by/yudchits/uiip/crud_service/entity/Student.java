@@ -1,5 +1,7 @@
 package by.yudchits.uiip.crud_service.entity;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -14,12 +16,12 @@ public class Student {
 
     @Column(name = "name")
     @NotBlank(message = "The field can't be empty")
-    @Size(min = 1, max = 25, message = "The length of a name must be between 1 and 25")
+    @Length(min = 1, max = 25, message = "The length of a name must be between 1 and 25")
     private String name;
 
     @Column(name = "surname")
     @NotBlank(message = "The field can't be empty")
-    @Size(min = 1, max = 25, message = "The length of a name must be between 1 and 25")
+    @Length(min = 1, max = 25, message = "The length of a name must be between 1 and 25")
     private String surname;
 
     @Column(name = "course")

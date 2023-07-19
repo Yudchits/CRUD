@@ -42,22 +42,6 @@ public class MyController {
         return "add-update-student";
     }
 
-    @RequestMapping("/save-update-student")
-    public String saveOrUpdateStudent(@Valid @ModelAttribute("student") Student student, BindingResult bindingResult) {
-        List<Faculty> faculties = facultyService.findAllFaculties();
-
-        for (Faculty faculty : faculties) {
-            if (student.getFaculty().getName().equals(faculty.getName())) {
-                student.setFaculty(faculty);
-                studentService.saveOrUpdateStudent(student);
-                return "redirect:/main";
-            }
-        }
-
-        bindingResult.rejectValue("faculty", "error.faculty", "Such faculty doesn't exist");
-        return "add-update-student";
-    }
-
     @RequestMapping("/update-student-details")
     public String updateStudentDetails(@RequestParam("id") long id, Model model) {
         Student student = studentService.findStudentById(id);
@@ -65,5 +49,61 @@ public class MyController {
         model.addAttribute("student", student);
 
         return "add-update-student";
+    }
+
+    @RequestMapping("/save-update-student")
+    public String saveOrUpdateStudent(@Valid @ModelAttribute("student") Student student, BindingResult bindingResult) {
+        if (student.getId() != 0) {
+            return changeStudentDetails(student, bindingResult);
+        } else {
+            return saveNewStudent(student, bindingResult);
+        }
+    }
+
+    private String saveNewStudent(Student student, BindingResult bindingResult) {
+        Faculty faculty = isFacultyExisted(student.getFaculty());
+
+        boolean isEmailExisted = isEmailExisted(student.getEmail());
+
+        if (faculty == null) {
+            bindingResult.rejectValue("faculty", "error.faculty", "Such faculty doesn't exist");
+        }
+        if (isEmailExisted) {
+            bindingResult.rejectValue("email", "error.email", "Such email already exists");
+        }
+
+        if (bindingResult.hasErrors()) {
+            return "add-update-student";
+        } else {
+            student.setFaculty(faculty);
+            studentService.saveOrUpdateStudent(student);
+            return "redirect:/main";
+        }
+    }
+
+    private String changeStudentDetails(Student student, BindingResult bindingResult) {
+        return "redirect:/main";
+    }
+
+    private Faculty isFacultyExisted(Faculty searchedFaculty) {
+        List<Faculty> faculties = facultyService.findAllFaculties();
+
+        for (Faculty faculty : faculties) {
+            if (searchedFaculty.getName().equals(faculty.getName()))
+                return faculty;
+        }
+
+        return null;
+    }
+
+    private boolean isEmailExisted(String email) {
+        List<Student> students = studentService.findAllStudents();
+
+        for (Student st : students) {
+            if (st.getEmail().equals(email))
+                return true;
+        }
+
+        return false;
     }
 }
